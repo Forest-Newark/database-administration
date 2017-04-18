@@ -34,15 +34,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Forest Newark</td>
-                    <td>Admin</td>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.getFirstName() + ' ' +user.getLastName()}">Forest Newark</td>
+                    <td th:text="${user.getPermission()}">Admin</td>
                 </tr>
-                <tr>
+                <tr th:remove="all">
                     <td>Paul Laches</td>
                     <td>Admin</td>
                 </tr>
-                <tr>
+                <tr th:remove="all">
                     <td>Jeffery Barnhart</td>
                     <td>User</td>
                 </tr>
@@ -154,6 +154,8 @@
             <h5>Arranger: <span>Test</span></h5>
             <h5>Ensemble: <span>Test</span></h5>
             <h5>Notes: <span>Test</span></h5>
+            <h5>Lasted Edited By: <span>Test</span></h5>
+
         </div>
     </div>
     <div class="row Footer">
