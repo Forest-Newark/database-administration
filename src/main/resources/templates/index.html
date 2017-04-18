@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{styles.css}" href="../static/styles.css"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
     <title>Database Administration</title>
 </head>
 <body>
@@ -13,17 +13,148 @@
             <h2>Database Administration</h2>
         </div>
     </div>
+    <hr/>
     <div class="row UserInfo">
-        <div class="DatabaseSize col-md-6"></div>
-        <div class="Login col-md-6"></div>
+        <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
+        <div class="Login col-md-6 text-center">Working as: (User)</div>
     </div>
+
+
+    <hr/>
+
+
     <div class="row WorkArea">
-        <div class="UserManagment col-md-6"></div>
-        <div class="ActionItems col-md-6"></div>
+        <div class="UserManagment col-md-6">
+            <h4 class="text-center">User Managment</h4>
+            <table class="GeneratedTable">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Permission</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Forest Newark</td>
+                    <td>Admin</td>
+                </tr>
+                <tr>
+                    <td>Paul Laches</td>
+                    <td>Admin</td>
+                </tr>
+                <tr>
+                    <td>Jeffery Barnhart</td>
+                    <td>User</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="ActionItems col-md-6">
+            <h4 class="text-center">Action Items</h4>
+            <table class="GeneratedTable">
+                <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Organize Concert Music</td>
+                    <td>In Process</td>
+                </tr>
+                <tr>
+                    <td>Create Library Database</td>
+                    <td>In Process</td>
+                </tr>
+                <tr>
+                    <td>Cleanup</td>
+                    <td>Completed</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
+    <hr/>
+
+
     <div class="row DatabaseArea">
-        <div class="Database col-md-6"></div>
-        <div class="Detail col-md-6"></div>
+        <div class="Database col-md-6">
+            <h4 class="text-center">Music Database</h4>
+            <table class="GeneratedTable">
+                <thead>
+                <tr>
+                    <th>Catagory</th>
+                    <th>Library #</th>
+                    <th>Title</th>
+                    <th>Composer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                <tr>
+                    <td>CS</td>
+                    <td>542</td>
+                    <td>Tempered Steel</td>
+                    <td>Charles Rochester Young</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#">1</a>
+                <a class="active" href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">&raquo;</a>
+            </div>
+            </div>
+
+        </div>
+        <div class="Detail col-md-6">
+            <h4 class = "text-center">Detail View</h4>
+            <h5>Piece Title: <span>Test</span></h5>
+            <h5>Catagory: <span>Test</span></h5>
+            <h5>Library Number: <span>Test</span></h5>
+            <h5>Composer: <span>Test</span></h5>
+            <h5>Arranger: <span>Test</span></h5>
+            <h5>Ensemble: <span>Test</span></h5>
+            <h5>Notes: <span>Test</span></h5>
+        </div>
     </div>
     <div class="row Footer">
         <div class="col-xs-12"></div>
