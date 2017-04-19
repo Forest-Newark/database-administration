@@ -29,7 +29,7 @@
             <table class="GeneratedTable">
                 <thead>
                 <tr>
-                    <th>User</th>
+                    <th>User  <span class="text-center" th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal" data-target="#user-modal">Add User</a>)</span></th>
                     <th>Permission</th>
                 </tr>
                 </thead>
@@ -76,12 +76,10 @@
         </div>
     </div>
 
-
     <hr/>
 
-
     <div class="row DatabaseArea">
-        <div class="Database col-md-6">
+        <div class="Database col-md-12">
             <h4 class="text-center">Music Database</h4>
             <table class="GeneratedTable">
                 <thead>
@@ -145,25 +143,12 @@
             </div>
 
         </div>
-        <div class="Detail col-md-6">
-            <h4 class = "text-center">Detail View</h4>
-            <h5>Piece Title: <span>Test</span></h5>
-            <h5>Catagory: <span>Test</span></h5>
-            <h5>Library Number: <span>Test</span></h5>
-            <h5>Composer: <span>Test</span></h5>
-            <h5>Arranger: <span>Test</span></h5>
-            <h5>Ensemble: <span>Test</span></h5>
-            <h5>Notes: <span>Test</span></h5>
-            <h5>Lasted Edited By: <span>Test</span></h5>
-
-        </div>
+        x
     </div>
     <div class="row Footer">
         <div class="col-xs-12"></div>
     </div>
 </div>
-
-
 
 <!--Modals-->
 
@@ -185,6 +170,38 @@
     </div>
 </div>
 
+
+<!--User Modal-->
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="usermodal-container">
+            <h1>Login to Your Account</h1><br/>
+            <form action="/adduser" method="post">
+                <input type="text" name="firstname" placeholder="First Name"/>
+                <input type="text" name="firstname" placeholder="Last Name"/>
+                <select name="Rank">
+                    <option value="volvo">SPC</option>
+                    <option value="saab">SGT</option>
+                    <option value="fiat">SSG</option>
+                    <option value="audi">SFC</option>
+                    <option value="audi">1SG</option>
+                    <option disabled="disabled">----</option>
+                    <option value="audi">CW1</option>
+                    <option value="audi">CW2</option>
+                    <option value="audi">CW3</option>
+                </select>
+                <select name="permission">
+                    <option value ="admin">Admin</option>
+                    <option value ="user">User</option>
+                    <option value="view-only">View-Only</option>
+                </select>
+                <input type="text" name="email" placeholder="Email"/>
+                <input type="password" name="password" placeholder="Password"/>
+                <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 
