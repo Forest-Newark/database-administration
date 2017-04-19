@@ -59,15 +59,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Organize Concert Music</td>
-                    <td>In Process</td>
+                <tr th:each="actionitem : ${actionitems}">
+                    <td th:text="${actionitem.getItem()}">Organize Concert Music</td>
+                    <td th:text="${actionitem.getStatus()}">In Process</td>
                 </tr>
-                <tr>
+                <tr th:remove="all">
                     <td>Create Library Database</td>
                     <td>In Process</td>
                 </tr>
-                <tr>
+                <tr th:remove="all">
                     <td>Cleanup</td>
                     <td>Completed</td>
                 </tr>

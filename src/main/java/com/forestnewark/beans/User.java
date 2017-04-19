@@ -1,4 +1,4 @@
-package com.forestnewark;
+package com.forestnewark.beans;
 
 
 
