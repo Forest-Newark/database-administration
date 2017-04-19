@@ -15,19 +15,27 @@ import java.util.List;
 @Component
 public class DatabaseRepository {
 
- @Autowired
+ final
  JdbcTemplate template;
+
+    @Autowired
+    public DatabaseRepository(JdbcTemplate template) {
+        this.template = template;
+    }
 
     public List<User> getAllUsers(){
 
-        return template.query("SELECT personid,firstname,lastname,rank,permission FROM person ",
+        return template.query("SELECT personid,firstname,lastname,rank,permission,email,username,password FROM person ",
                 new Object[]{},
                 ((resultSet, i) -> new User(
                         resultSet.getInt("personid"),
                         resultSet.getString("firstname"),
                         resultSet.getString("lastname"),
                         resultSet.getString("rank"),
-                        resultSet.getString("permission")
+                        resultSet.getString("permission"),
+                        resultSet.getString("email"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password")
 
                 ))
                 );

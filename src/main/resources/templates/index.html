@@ -16,7 +16,7 @@
     <hr/>
     <div class="row UserInfo">
         <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
-        <div class="Login col-md-6 text-center">Working as: (User)</div>
+        <div class="Login col-md-6 text-center">Logged in as: <span th:text="${user}"></span><span th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal" data-target="#login-modal">Login</a>)</span></div>
     </div>
 
 
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="user : ${users}">
-                    <td th:text="${user.getFirstName() + ' ' +user.getLastName()}">Forest Newark</td>
+                    <td th:text="${user.getUsername()}">Forest Newark</td>
                     <td th:text="${user.getPermission()}">Admin</td>
                 </tr>
                 <tr th:remove="all">
@@ -162,5 +162,34 @@
         <div class="col-xs-12"></div>
     </div>
 </div>
+
+
+
+<!--Modals-->
+
+<!--Login Modal-->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Login to Your Account</h1><br/>
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Username"/>
+                <input type="password" name="password" placeholder="Password"/>
+                <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
+            </form>
+
+            <div class="login-help">
+                <a href="#">Register</a> - <a href="#">Forgot Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
+
 </html>

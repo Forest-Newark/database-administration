@@ -3,13 +3,16 @@ package com.forestnewark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Created by forestnewark on 4/18/17.
  */
 
 @Controller
+@SessionAttributes("user")
 public class AdminController {
 
 
@@ -28,6 +31,18 @@ public class AdminController {
         return "index";
     }
 
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public RedirectView login(ModelMap model, @RequestParam("username") String username, @RequestParam("password") String password){
 
+        model.put("user",username);
+        return new RedirectView("/");
+
+    }
+
+    //Default to Guest
+    @ModelAttribute("user")
+    public String setUserDefault(){
+       return "Guest";
+    }
 
 }
