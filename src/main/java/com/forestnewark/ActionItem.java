@@ -1,4 +1,4 @@
-package com.forestnewark.beans;
+package com.forestnewark;
 
 /**
  * Created by forestnewark on 4/18/17.

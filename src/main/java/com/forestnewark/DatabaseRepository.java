@@ -1,7 +1,6 @@
 package com.forestnewark;
 
 
-import com.forestnewark.beans.ActionItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -55,13 +54,25 @@ public class DatabaseRepository {
     }
 
 
-    public void addUser(User user) {
+    public void updateUser(User user) {
+
+        if(user.getId() != null){
+
+            System.out.println("I will update: " + user.getUsername());
+        }else {
+            template.update("INSERT INTO person (firstname, lastname,rank,permission,email,username,password) VALUES (?,?,?,?,?,?,?)",
+
+                    user.getFirstName(), user.getLastName(), user.getRank(), user.getPermission(), user.getEmail(), user.getFirstName() + "-" + user.getLastName(), user.getPassword());
+        }
 
 
-        template.update("INSERT INTO person (firstname, lastname,rank,permission,email,username,password) VALUES (?,?,?,?,?,?,?)",
-
-                user.getFirstName(), user.getLastName(), user.getRank(), user.getPermission(), user.getEmail(), user.getFirstName() + "-" + user.getLastName(), user.getPassword());
     }
+
+    public void deleteUser(User user){
+
+        template.update("DELETE FROM person WHERE personid = ?",user.getId());
+    }
+
 
 
 }

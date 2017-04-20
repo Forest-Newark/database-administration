@@ -39,11 +39,18 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public RedirectView addUser(@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
-                                @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password) {
-        User user = new User(null,firstName,lastName,rank,permission,email,null,password);
-        repo.addUser(user);
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public RedirectView addUser(@RequestParam("action") String action,@RequestParam("id") Integer id,@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
+                                @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password,@RequestParam("username") String userName) {
+        User user = new User(id,firstName,lastName,rank,permission,email,userName,password);
+
+        if(action.equals("update")){
+            repo.updateUser(user);
+        }
+        if(action.equals("delete")){
+            repo.deleteUser(user);
+        }
+
         return new RedirectView("/");
     }
 

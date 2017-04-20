@@ -1,0 +1,2 @@
+@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
+                                @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password
