@@ -1,214 +1,351 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{styles.css}" href="../static/styles.css"/>
-    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-    <title>Database Administration</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1"/>
+    <meta name="description" content="Library Database Manager for 246 Army Band"/>
+    <meta name="author" content="SGT Forest Newark"/>
+
+    <title>246 Army Band Library Manager</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{styles.css}" href="../static/styles.css" rel="stylesheet"/>
+
 </head>
+
 <body>
-<div class="container">
-    <div class="row Header">
-        <div class="Header col-xs-12 text-center">
-            <h2>Database Administration</h2>
-        </div>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    246 Army Band
+                </a>
+            </li>
+            <li>
+                <a type="button" data-toggle="modal" data-target="#user-modal">Add User</a>
+            </li>
+            <li>
+                <a type="button" data-toggle="modal" data-target="#action-modal">Add Action Item</a>
+            </li>
+            <li>
+                <a type="button" data-toggle="modal" data-target="#composition-modal">Add Composition</a>
+            </li>
+        </ul>
     </div>
-    <hr/>
-    <div class="row UserInfo">
-        <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
-        <div class="Login col-md-6 text-center">Logged in as: <span th:text="${user}"></span><span th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal" data-target="#login-modal">Login</a>)</span></div>
-    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
 
 
-    <hr/>
-
-
-    <div class="row WorkArea">
-        <div class="UserManagment col-md-6">
-            <h4 class="text-center">User Managment</h4>
-            <table class="GeneratedTable">
-                <thead>
-                <tr>
-                    <th>User  <span class="text-center" th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal" data-target="#user-modal">Add User</a>)</span></th>
-                    <th>Permission</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${users}">
-                    <td th:text="${user.getUsername()}">Forest Newark</td>
-                    <td th:text="${user.getPermission()}">Admin</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>Paul Laches</td>
-                    <td>Admin</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>Jeffery Barnhart</td>
-                    <td>User</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="ActionItems col-md-6">
-            <h4 class="text-center">Action Items</h4>
-            <table class="GeneratedTable">
-                <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="actionitem : ${actionitems}">
-                    <td th:text="${actionitem.getItem()}">Organize Concert Music</td>
-                    <td th:text="${actionitem.getStatus()}">In Process</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>Create Library Database</td>
-                    <td>In Process</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>Cleanup</td>
-                    <td>Completed</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <hr/>
-
-    <div class="row DatabaseArea">
-        <div class="Database col-md-12">
-            <h4 class="text-center">Music Database</h4>
-            <table class="GeneratedTable">
-                <thead>
-                <tr>
-                    <th>Catagory</th>
-                    <th>Library #</th>
-                    <th>Title</th>
-                    <th>Composer</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr>
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="text-center">
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#">1</a>
-                <a class="active" href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&raquo;</a>
+            <div class="row Header">
+                <div class="Header col-xs-12 text-center">
+                    <h2>Database Administration</h2>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
             </div>
+            <hr/>
+            <div class="row UserInfo">
+                <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
+                <div class="Login col-md-6 text-center">Logged in as: <span th:text="${user}"></span><span
+                        th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal"
+                                                            data-target="#login-modal">Login</a>)</span></div>
             </div>
 
+
+            <hr/>
+
+
+            <div class="row WorkArea">
+                <div class="UserManagment col-md-6">
+                    <h4 class="text-center">User Managment</h4>
+                    <table class="GeneratedTable">
+                        <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Permission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.getUsername()}">Forest Newark</td>
+                            <td th:text="${user.getPermission()}">Admin</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Paul Laches</td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Jeffery Barnhart</td>
+                            <td>User</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ActionItems col-md-6">
+                    <h4 class="text-center">Action Items</h4>
+                    <table class="GeneratedTable">
+                        <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="actionitem : ${actionitems}">
+                            <td th:text="${actionitem.getItem()}">Organize Concert Music</td>
+                            <td th:text="${actionitem.getStatus()}">In Process</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Create Library Database</td>
+                            <td>In Process</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Cleanup</td>
+                            <td>Completed</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row DatabaseArea">
+                <div class="Database col-md-12">
+                    <h4 class="text-center">Music Database</h4>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <form>
+                                <input type="text" placeholder="Keyword">
+                                <select>
+                                    <option>All Catagories</option>
+                                    <option>CS</option>
+                                    <option>EN</option>
+                                    <option>MB</option>
+                                    <option>LC</option>
+                                    <option>M</option>
+                                    <option>MC</option>
+                                    <option>SB</option>
+                                    <option>SP</option>
+                                    <option>POP</option>
+                                </select>
+                                <select>
+                                    <option>All Ensembles</option>
+                                    <option>Concert Band</option>
+                                    <option>Jazz Band</option>
+                                    <option>Small Ensemble</option>
+                                </select>
+                                <button>Search</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="GeneratedTable">
+                        <thead>
+                        <tr>
+                            <th>Catagory</th>
+                            <th>Library #</th>
+                            <th>Title</th>
+                            <th>Composer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <div class="pagination">
+                            <a href="#"> < </a>
+                            <a href="#"> > </a>
+                        </div>
+                    </div>
+
+                </div>
+                x
+            </div>
+            <div class="row Footer">
+                <div class="col-xs-12"></div>
+            </div>
         </div>
-        x
-    </div>
-    <div class="row Footer">
-        <div class="col-xs-12"></div>
+
+
+
+
+
+        <!--Modals-->
+
+        <!--Login Modal-->
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <h1>Login to Your Account</h1><br/>
+                    <form action="/login" method="post">
+                        <input type="text" name="username" placeholder="Username"/>
+                        <input type="password" name="password" placeholder="Password"/>
+                        <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
+                    </form>
+
+                    <div class="login-help">
+                        <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--User Modal-->
+        <div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="usermodal-container">
+                    <h1>Login to Your Account</h1><br/>
+                    <form th:action="@{/addUser}" action="index.html" method="post">
+                        <input type="text" name="firstName" placeholder="First Name"/>
+                        <input type="text" name="lastName" placeholder="Last Name"/>
+                        <select name="rank">
+                            <option value="volvo">SPC</option>
+                            <option value="saab">SGT</option>
+                            <option value="fiat">SSG</option>
+                            <option value="audi">SFC</option>
+                            <option value="audi">1SG</option>
+                            <option disabled="disabled">----</option>
+                            <option value="audi">CW1</option>
+                            <option value="audi">CW2</option>
+                            <option value="audi">CW3</option>
+                        </select>
+                        <select name="permission">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            <option value="view-only">View-Only</option>
+                        </select>
+                        <input type="text" name="email" placeholder="Email"/>
+                        <input type="password" name="password" placeholder="Password"/>
+                        <input type="hidden" name="id" value=""/>
+                        <input type="hidden" name="username" value=""/>
+                        <input type="submit" name="Add User" class="login loginmodal-submit" value="Add User"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Action Item Modal-->
+        <div class="modal fade" id="action-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="actionmodal-container">
+                    <h1>Action Item</h1><br/>
+                    <form action="/addActionItem" method="post">
+                        <input type="text" name="action" placeholder="Action Item"/>
+                        <input type="text" name="status" placeholder="Status"/>
+                        <input type="submit" name="Add" class="login loginmodal-submit" value="Add"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Composition Modal Modal-->
+        <div class="modal fade" id="composition-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="compositionmodal-container">
+                    <h1>Login to Your Account</h1><br/>
+                    <form th:action="@{/addComposition}" action="index.html" method="post">
+                        <input type="text" name="title" placeholder="Title"/>
+                        <input type="text" name="Composer" placeholder="Composer(Last Name, First Name)"/>
+                        <input type="text" name="Arranger" placeholder="Arranger(Last Name, First Name)"/>
+                        <select name="catagory">
+                            <option value="SPC">SPC</option>
+                            <option value="SGT">SGT</option>
+                            <option value="SSG">SSG</option>
+                            <option value="SFC">SFC</option>
+                            <option value="1SG">1SG</option>
+                            <option disabled="disabled">----</option>
+                            <option value="CW1">CW1</option>
+                            <option value="audi">CW2</option>
+                            <option value="audi">CW3</option>
+                        </select>
+                        <select name="permission">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            <option value="view-only">View-Only</option>
+                        </select>
+                        <input type="text" name="email" placeholder="Email"/>
+                        <input type="password" name="password" placeholder="Password"/>
+                        <input type="hidden" name="id" value=""/>
+                        <input type="hidden" name="username" value=""/>
+                        <input type="submit" name="Add User" class="login loginmodal-submit" value="Add User"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<!--Modals-->
 
-<!--Login Modal-->
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Login to Your Account</h1><br/>
-            <form action="/login" method="post">
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
-            </form>
+<!-- jQuery -->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-            <div class="login-help">
-                <a href="#">Register</a> - <a href="#">Forgot Password</a>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- Menu Toggle Script -->
+<script th:src="@{script.js}" src="../static/script.js"></script>
 
-<!--User Modal-->
-<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="usermodal-container">
-            <h1>Login to Your Account</h1><br/>
-            <form th:action="@{/addUser}" action="index.html" method="post">
-                <input type="text" name="firstName" placeholder="First Name"/>
-                <input type="text" name="lastName" placeholder="Last Name"/>
-                <select name="rank">
-                    <option value="volvo">SPC</option>
-                    <option value="saab">SGT</option>
-                    <option value="fiat">SSG</option>
-                    <option value="audi">SFC</option>
-                    <option value="audi">1SG</option>
-                    <option disabled="disabled">----</option>
-                    <option value="audi">CW1</option>
-                    <option value="audi">CW2</option>
-                    <option value="audi">CW3</option>
-                </select>
-                <select name="permission">
-                    <option value ="admin">Admin</option>
-                    <option value ="user">User</option>
-                    <option value="view-only">View-Only</option>
-                </select>
-                <input type="text" name="email" placeholder="Email"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="hidden" name="id"  value="" />
-                <input type="hidden" name="username" value="" />
-                <input type="submit" name="Add User" class="login loginmodal-submit" value="Add User"/>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" ></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
 </html>
