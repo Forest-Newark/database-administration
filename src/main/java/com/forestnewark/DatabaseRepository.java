@@ -2,7 +2,6 @@ package com.forestnewark;
 
 
 import com.forestnewark.beans.ActionItem;
-import com.forestnewark.beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -15,15 +14,15 @@ import java.util.List;
 @Component
 public class DatabaseRepository {
 
- final
- JdbcTemplate template;
+    final
+    JdbcTemplate template;
 
     @Autowired
     public DatabaseRepository(JdbcTemplate template) {
         this.template = template;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
 
         return template.query("SELECT personid,firstname,lastname,rank,permission,email,username,password FROM person ",
                 new Object[]{},
@@ -38,11 +37,11 @@ public class DatabaseRepository {
                         resultSet.getString("password")
 
                 ))
-                );
+        );
 
     }
 
-    public List<ActionItem> getAllActionItems(){
+    public List<ActionItem> getAllActionItems() {
         return template.query("SELECT * FROM actionitems",
                 new Object[]{},
                 (resultSet, i) -> new ActionItem(
@@ -51,12 +50,23 @@ public class DatabaseRepository {
                         resultSet.getString("status"),
                         resultSet.getString("addedby")
                 )
-                );
+        );
 
     }
 
 
+    public void addUser(User user) {
 
+
+        template.update("INSERT INTO person (firstname, lastname,rank,permission,email,username,password) VALUES (?,?,?,?,?,?,?)",
+
+                user.getFirstName(), user.getLastName(), user.getRank(), user.getPermission(), user.getEmail(), user.getFirstName() + "-" + user.getLastName(), user.getPassword());
+    }
 
 
 }
+
+
+
+
+

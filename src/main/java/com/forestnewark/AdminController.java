@@ -39,6 +39,14 @@ public class AdminController {
 
     }
 
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public RedirectView addUser(@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
+                                @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password) {
+        User user = new User(null,firstName,lastName,rank,permission,email,null,password);
+        repo.addUser(user);
+        return new RedirectView("/");
+    }
+
     //Default to Guest
     @ModelAttribute("user")
     public String setUserDefault(){

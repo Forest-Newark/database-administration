@@ -176,10 +176,10 @@
     <div class="modal-dialog">
         <div class="usermodal-container">
             <h1>Login to Your Account</h1><br/>
-            <form action="/adduser" method="post">
-                <input type="text" name="firstname" placeholder="First Name"/>
-                <input type="text" name="firstname" placeholder="Last Name"/>
-                <select name="Rank">
+            <form th:action="@{/addUser}" action="index.html" method="post">
+                <input type="text" name="firstName" placeholder="First Name"/>
+                <input type="text" name="lastName" placeholder="Last Name"/>
+                <select name="rank">
                     <option value="volvo">SPC</option>
                     <option value="saab">SGT</option>
                     <option value="fiat">SSG</option>
@@ -197,7 +197,9 @@
                 </select>
                 <input type="text" name="email" placeholder="Email"/>
                 <input type="password" name="password" placeholder="Password"/>
-                <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
+                <input type="hidden" name="id"  value="" />
+                <input type="hidden" name="username" value="" />
+                <input type="submit" name="Add User" class="login loginmodal-submit" value="Add User"/>
             </form>
         </div>
     </div>

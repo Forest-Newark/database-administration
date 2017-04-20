@@ -1,4 +1,4 @@
-package com.forestnewark.beans;
+package com.forestnewark;
 
 
 
@@ -8,26 +8,13 @@ package com.forestnewark.beans;
 
 
 public class User{
-
-
     private Integer id;
-
-
     private String firstName;
-
-
     private String lastName;
-
-
     private String rank;
-
-
     private String permission;
-
     private String email;
-
     private String username;
-
     private String password;
 
     public User(){
