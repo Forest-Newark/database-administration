@@ -45,9 +45,10 @@ public class DatabaseRepository {
                 new Object[]{},
                 (resultSet, i) -> new ActionItem(
                         resultSet.getInt("actionitemid"),
-                        resultSet.getString("item"),
+                        resultSet.getString("actionitem"),
                         resultSet.getString("status"),
-                        resultSet.getString("addedby")
+                        resultSet.getString("priority"),
+                        resultSet.getString("comments")
                 )
         );
 
@@ -83,6 +84,37 @@ public class DatabaseRepository {
 
         template.update("DELETE FROM person WHERE personid = ?",user.getId());
     }
+
+
+    public void updateActionItem(ActionItem actionItem){
+
+        if(actionItem.getId() != null){
+
+            template.update("UPDATE actionitems SET actionitem = ?,status = ?,priority = ?, comments = ?",
+                    actionItem.getItem(),
+                    actionItem.getStatus(),
+                    actionItem.getPriority(),
+                    actionItem.getComments()
+                    );
+        }
+
+        else{
+            template.update("INSERT INTO actionitems (actionitem, status, priority, comments) VALUES (?,?,?,?)",
+                    actionItem.getItem(),
+                    actionItem.getStatus(),
+                    actionItem.getPriority(),
+                    actionItem.getComments()
+                    );
+        }
+    }
+
+    public void deleteActionItem(ActionItem item){
+        template.update("DELETE FROM actionitems WHERE actionitemid = ?",
+                item.getId()
+                );
+    }
+
+
 
 
 

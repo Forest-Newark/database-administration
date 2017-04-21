@@ -123,7 +123,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="actionitem : ${actionitems}">
-                            <td th:text="${actionitem.getItem()}">Organize Concert Music</td>
+                            <td><a th:attr="data-id=${actionitem.getId()},data-item=${actionitem.getItem()},data-status=${actionitem.getStatus()},data-priority=${actionitem.getPriority()},data-comments=${actionitem.getComments()}" data-toggle="modal" data-target="#action-modal" href="#" th:text="${actionitem.getItem()}">Organize Concert Music</a></td>
                             <td th:text="${actionitem.getStatus()}">In Process</td>
                         </tr>
                         <tr th:remove="all">
@@ -300,10 +300,34 @@
         <div class="modal-dialog">
             <div class="actionmodal-container">
                 <h1>Action Item</h1><br/>
-                <form action="/addActionItem" method="post">
-                    <input type="text" name="action" placeholder="Action Item"/>
-                    <input type="text" name="status" placeholder="Status"/>
-                    <input type="submit" name="Add" class="login loginmodal-submit" value="Add"/>
+                <form th:action="@{/addActionItem}" action="index.html" method="post">
+                    <input type="text" name="item" placeholder="Action Item"/>
+                    <select name = "status" required="required">
+                        <option selected="selected"  disabled="disabled">Action Status</option>
+                        <option value="Open">Open</option>
+                        <option value="In-Progress">In-Progress</option>
+                        <option value="Complete">Complete</option>
+                        <option value="Canceled">Canceled</option>
+                    </select>
+                    <select name="priority">
+                        <option selected="selected" disabled="disabled">Action Priority</option>
+                        <option value="Critical">Critical</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <input type="text" name="comments" placeholder="Comments"/>
+                    <input type="hidden" name="id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -357,7 +381,13 @@
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Menu Toggle Script -->
-<script th:src="@{script.js}" src="../static/script.js"></script>
+<script th:src="@{/js/toggle.js}" src="../static/js/toggle.js"></script>
+
+<!--User Modal Script-->
+<script th:src="@{/js/usermodal.js}" src="../static/js/usermodal.js"></script>
+
+<!--Action Modal Script-->
+<script th:src="@{/js/actionmodal.js}" src="../static/js/actionmodal.js"></script>
 
 </body>
 

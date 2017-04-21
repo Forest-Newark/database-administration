@@ -7,6 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+
+
 /**
  * Created by forestnewark on 4/18/17.
  */
@@ -40,7 +42,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    public RedirectView addUser(@RequestParam("action") String action,@RequestParam("id") Integer id,@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
+    public RedirectView updateUser(@RequestParam("action") String action,@RequestParam("id") Integer id,@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
                                 @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password,@RequestParam("username") String userName) {
         User user = new User(id,firstName,lastName,rank,permission,email,userName,password);
 
@@ -59,5 +61,24 @@ public class AdminController {
     public String setUserDefault(){
        return "Guest";
     }
+
+
+
+
+    //Update Action Item
+    @RequestMapping(value = "/addActionItem",method =RequestMethod.POST)
+    public RedirectView updateActionItem(ActionItem actionItem, @RequestParam("action") String action){
+
+        if(action.equals("update")){
+            repo.updateActionItem(actionItem);
+        }
+        if(action.equals("delete")){
+            repo.deleteActionItem(actionItem);
+        }
+
+        return new RedirectView("/");
+    }
+
+
 
 }

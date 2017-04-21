@@ -8,15 +8,18 @@ public class ActionItem {
     private Integer id;
     private String item;
     private String status;
-    private String addedBy;
+    private String priority;
+    private String comments;
+
 
     public ActionItem(){}
 
-    public ActionItem(Integer id, String item, String status, String addedBy) {
+    public ActionItem(Integer id, String item, String status,String priority, String comments) {
         this.id = id;
         this.item = item;
         this.status = status;
-        this.addedBy = addedBy;
+        this.priority = priority;
+        this.comments = comments;
     }
 
     public Integer getId() {
@@ -43,11 +46,19 @@ public class ActionItem {
         this.status = status;
     }
 
-    public String getAddedBy() {
-        return addedBy;
+    public String getComments() {
+        return comments;
     }
 
-    public void setAddedBy(String addedBy) {
-        this.addedBy = addedBy;
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 }

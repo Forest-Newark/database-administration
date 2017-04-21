@@ -1,11 +1,6 @@
 /**
  * Created by forestnewark on 4/20/17.
  */
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
-
 
 
 
@@ -30,12 +25,10 @@ $('#user-modal').on('show.bs.modal', function (e) {
    $("#user-modal").find("input[name='username']").val(username);
    $("#user-modal").find("input[name='password']").val(password);
 
-
-
-
-
-   if(id === null){
+   if(id >0 ){
        $("#user-modal-title").text("Edit User");
+   }else {
+       $("#user-modal-title").text("Add User");
    }
 
 
