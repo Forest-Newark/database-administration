@@ -34,4 +34,9 @@ $('#user-modal').on('show.bs.modal', function (e) {
 
 
 
+   if(id === null){
+       $("#user-modal-title").text("Edit User");
+   }
+
+
 });

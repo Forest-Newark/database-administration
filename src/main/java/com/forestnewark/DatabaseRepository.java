@@ -58,7 +58,18 @@ public class DatabaseRepository {
 
         if(user.getId() != null){
 
-            System.out.println("I will update: " + user.getUsername());
+
+            template.update("UPDATE person SET firstname =?, lastname = ?,rank = ?,permission = ?,email = ?, username =?, password = ? WHERE personid = ?",
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getRank(),
+                    user.getPassword(),
+                    user.getEmail(),
+                    user.getFirstName() + "-" +user.getLastName(),
+                    user.getPassword(),
+                    user.getId()
+                    );
+
         }else {
             template.update("INSERT INTO person (firstname, lastname,rank,permission,email,username,password) VALUES (?,?,?,?,?,?,?)",
 

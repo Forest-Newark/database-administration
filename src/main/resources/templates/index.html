@@ -247,7 +247,7 @@
          aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="usermodal-container">
-                <h1>Add User</h1><br/>
+                <h1 id="user-modal-title">Add User</h1><br/>
                 <form th:action="@{/updateUser}"  action="index.html" modelAttribute="user" method="post">
                     <input type="text" name="firstName" placeholder="First Name" required="required"/>
                     <input type="text" name="lastName" placeholder="Last Name" required="required"/>
@@ -264,7 +264,7 @@
                     </select>
                     <select name="permission" required="required">
                         <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        <option value="user" selected="selected">User</option>
                         <option value="view-only">View-Only</option>
                     </select>
                     <input type="text" name="email" placeholder="Email"/>
