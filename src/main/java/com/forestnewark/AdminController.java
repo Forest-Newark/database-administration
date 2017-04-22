@@ -1,5 +1,6 @@
 package com.forestnewark;
 
+import com.forestnewark.repository.ActionItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +18,22 @@ import org.springframework.web.servlet.view.RedirectView;
 @SessionAttributes("user")
 public class AdminController {
 
+    final
+    ActionItemRepository actionItemRepository;
 
     final
     DatabaseRepository repo;
 
     @Autowired
-    public AdminController(DatabaseRepository repo) {
+    public AdminController(DatabaseRepository repo, ActionItemRepository actionItemRepository) {
         this.repo = repo;
+        this.actionItemRepository = actionItemRepository;
     }
 
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("users",repo.getAllUsers());
-        model.addAttribute("actionitems",repo.getAllActionItems());
+        model.addAttribute("actionitems",actionItemRepository.findAll());
         return "index";
     }
 
@@ -70,10 +74,22 @@ public class AdminController {
     public RedirectView updateActionItem(ActionItem actionItem, @RequestParam("action") String action){
 
         if(action.equals("update")){
-            repo.updateActionItem(actionItem);
+            if(actionItem.getId() == null){
+                actionItemRepository.save(actionItem);
+            }
+            else {
+                ActionItem updateItem = actionItemRepository.getOne(actionItem.getId());
+                updateItem.setId(actionItem.getId());
+                updateItem.setItem(actionItem.getItem());
+                updateItem.setStatus(actionItem.getStatus());
+                updateItem.setPriority(actionItem.getPriority());
+                updateItem.setComments(actionItem.getComments());
+                actionItemRepository.save(updateItem);
+
+            }
         }
         if(action.equals("delete")){
-            repo.deleteActionItem(actionItem);
+            actionItemRepository.delete(actionItem);
         }
 
         return new RedirectView("/");

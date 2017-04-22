@@ -1,11 +1,22 @@
 package com.forestnewark;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by forestnewark on 4/18/17.
  */
+
+@Entity
+@Table(name = "actionitem")
 public class ActionItem {
 
+    @Id
+    @GeneratedValue
     private Integer id;
+
     private String item;
     private String status;
     private String priority;
@@ -14,8 +25,8 @@ public class ActionItem {
 
     public ActionItem(){}
 
-    public ActionItem(Integer id, String item, String status,String priority, String comments) {
-        this.id = id;
+    public ActionItem(String item, String status,String priority, String comments) {
+
         this.item = item;
         this.status = status;
         this.priority = priority;
