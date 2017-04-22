@@ -75,7 +75,7 @@
             <div class="row UserInfo">
                 <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
                 <div class="Login col-md-6 text-center">Logged in as: <span th:text="${user}"></span><span
-                        th:if="${user.equals('Guest')}">(<a type="button" data-toggle="modal"
+                        th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
                                                             data-target="#login-modal">Login</a>)</span></div>
             </div>
 
@@ -98,7 +98,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-username=${user.getUsername()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getUsername()}">Forest Newark</a></td>
+                            <td><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getFirstName()+'-'+user.getLastName()}">Forest Newark</a></td>
                             <td th:text="${user.getPermission()}">Admin</td>
                         </tr>
                         <tr th:remove="all">
@@ -270,8 +270,6 @@
                     <input type="text" name="email" placeholder="Email"/>
                     <input type="password" name="password" placeholder="Password" required="required"/>
                     <input type="hidden" name="id"/>
-                    <input type="hidden" name="username" />
-
                     <div class="row">
                         <div class="col-md-4">
                             <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
@@ -282,12 +280,7 @@
                         <div class="col-md-4">
                             <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
                         </div>
-
                     </div>
-
-
-
-
                 </form>
             </div>
         </div>

@@ -1,6 +1,9 @@
 package com.forestnewark;
 
+import com.forestnewark.bean.ActionItem;
+import com.forestnewark.bean.User;
 import com.forestnewark.repository.ActionItemRepository;
+import com.forestnewark.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,29 +13,27 @@ import org.springframework.web.servlet.view.RedirectView;
 
 
 
-/**
- * Created by forestnewark on 4/18/17.
- */
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes("currentUser")
 public class AdminController {
+
+    final
+    UserRepository userRepository;
 
     final
     ActionItemRepository actionItemRepository;
 
-    final
-    DatabaseRepository repo;
-
     @Autowired
-    public AdminController(DatabaseRepository repo, ActionItemRepository actionItemRepository) {
-        this.repo = repo;
+    public AdminController(ActionItemRepository actionItemRepository, UserRepository userRepository) {
+
         this.actionItemRepository = actionItemRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("users",repo.getAllUsers());
+        model.addAttribute("users",userRepository.findAll());
         model.addAttribute("actionitems",actionItemRepository.findAll());
         return "index";
     }
@@ -40,28 +41,22 @@ public class AdminController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public RedirectView login(ModelMap model, @RequestParam("username") String username, @RequestParam("password") String password){
 
-        model.put("user",username);
+        model.put("currentUser",username);
         return new RedirectView("/");
 
     }
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    public RedirectView updateUser(@RequestParam("action") String action,@RequestParam("id") Integer id,@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName,@RequestParam("rank") String rank,
-                                @RequestParam("permission")String permission,@RequestParam("email")String email,@RequestParam("password") String password,@RequestParam("username") String userName) {
-        User user = new User(id,firstName,lastName,rank,permission,email,userName,password);
+    public RedirectView updateUser(@RequestParam("action") String action, User user) {
 
-        if(action.equals("update")){
-            repo.updateUser(user);
-        }
-        if(action.equals("delete")){
-            repo.deleteUser(user);
-        }
+        System.out.println(user);
+        userRepository.save(user);
 
         return new RedirectView("/");
     }
 
     //Default to Guest
-    @ModelAttribute("user")
+    @ModelAttribute("currentUser")
     public String setUserDefault(){
        return "Guest";
     }
@@ -69,7 +64,7 @@ public class AdminController {
 
 
 
-    //Update Action Item
+    //Action Item
     @RequestMapping(value = "/addActionItem",method =RequestMethod.POST)
     public RedirectView updateActionItem(ActionItem actionItem, @RequestParam("action") String action){
 

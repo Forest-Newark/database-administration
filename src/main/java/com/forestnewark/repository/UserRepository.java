@@ -1,11 +1,11 @@
 package com.forestnewark.repository;
 
-import com.forestnewark.bean.ActionItem;
+
+import com.forestnewark.bean.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by forestnewark on 4/22/17.
  */
-public interface ActionItemRepository extends JpaRepository<ActionItem,Integer> {
-
+public interface UserRepository extends JpaRepository<User,Integer> {
 }

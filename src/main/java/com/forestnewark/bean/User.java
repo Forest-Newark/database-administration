@@ -1,35 +1,36 @@
-package com.forestnewark;
+package com.forestnewark.bean;
 
 
-
-/**
- * Created by forestnewark on 4/18/17.
- */
+import javax.persistence.*;
 
 
+@Entity
+@Table(name = "users")
 public class User{
+
+    @Id
+    @GeneratedValue
     private Integer id;
+
     private String firstName;
     private String lastName;
+    private String email;
+    private String password;
     private String rank;
     private String permission;
-    private String email;
-    private String username;
-    private String password;
+
 
     public User(){
 
     }
 
-    public User(Integer id,String firstName, String lastName, String rank, String permission,String email,String username, String password) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String password, String rank, String permission) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.password = password;
         this.rank = rank;
         this.permission = permission;
-        this.email = email;
-        this.username = username;
-        this.password = password;
     }
 
     public Integer getId() {
@@ -56,6 +57,22 @@ public class User{
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRank() {
         return rank;
     }
@@ -70,29 +87,5 @@ public class User{
 
     public void setPermission(String permission) {
         this.permission = permission;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

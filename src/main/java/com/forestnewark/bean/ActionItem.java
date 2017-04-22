@@ -1,4 +1,4 @@
-package com.forestnewark;
+package com.forestnewark.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
