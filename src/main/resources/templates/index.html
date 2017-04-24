@@ -35,7 +35,7 @@
                     246 Army Band
                 </a>
             </li>
-            <li>
+            <li th:if="${accessRights.equals('admin')}">
                 <a type="button" data-id="" data-toggle="modal" data-target="#user-modal">Add User</a>
             </li>
             <li>
@@ -62,7 +62,7 @@
             <div class="row Header">
                 <div class="Header col-xs-12 text-center">
                     <h2>Database Administration</h2>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <a th:if="${!currentUser.equals('Guest')}" href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
                 </div>
             </div>
 
@@ -99,7 +99,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getFirstName()+'-'+user.getLastName()}">Forest Newark</a></td>
+                            <td th:remove="${accessRights.equals('admin')}? all : none"  th:if="${!accessRights.equals('admin')}" th:text="${user.getFirstName()+'-'+user.getLastName()}"></td>
+                            <td th:remove="${!accessRights.equals('admin')}? all : none"><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getFirstName()+'-'+user.getLastName()}">Forest Newark</a></td>
                             <td th:text="${user.getPermission()}">Admin</td>
                         </tr>
                         <tr th:remove="all">
@@ -282,7 +283,8 @@
                         <option value="Normal">Normal</option>
                         <option value="Low">Low</option>
                     </select>
-                    <input type="text" name="comments" placeholder="Comments"/>
+                    <textarea name="comments" placeholder="Comments"></textarea>
+                    <!--<input type="text" name="comments" placeholder="Comments"/>-->
                     <input type="hidden" name="id" />
                     <div class="row">
                         <div class="col-md-4">

@@ -104,10 +104,10 @@ public class AdminController {
             }
         }
 
+        if(action.equals("delete")){
+           userRepository.delete(user);
 
-
-        System.out.println(user);
-        userRepository.save(user);
+        }
 
         return new RedirectView("/");
     }

@@ -13,7 +13,7 @@ $('#action-modal').on('show.bs.modal', function (e) {
     //Populate modal data
     $("#action-modal").find("input[name='id']").val(id);
     $("#action-modal").find("input[name='item']").val(item);
-    $("#action-modal").find("input[name='comments']").val(comments);
+    $("#action-modal").find("textarea[name='comments']").val(comments);
     $("#action-modal").find("select[name='status']").val(status);
     $("#action-modal").find("select[name='priority']").val(priority);
 
