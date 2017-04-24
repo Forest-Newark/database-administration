@@ -51,9 +51,9 @@ public class AdminController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public RedirectView login(ModelMap model, @RequestParam("username") String username, @RequestParam("password") String password){
         if(userRepository.findByEmail(username).size()==0){
-            return new RedirectView("/login");
+            return new RedirectView("/git ");
         }else if(!userRepository.findByEmail(username).get(0).getPassword().equals(password)){
-            return new RedirectView("/login");
+            return new RedirectView("/");
         }else {
             model.put("currentUser",userRepository.findByEmail(username).get(0).getFirstName());
             model.put("accessRights",userRepository.findByEmail(username).get(0).getPermission());
