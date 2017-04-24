@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
-@SessionAttributes("currentUser")
+@SessionAttributes({"currentUser", "accessRights"})
 public class AdminController {
 
     final
@@ -50,17 +50,37 @@ public class AdminController {
     //Login Mapping. Called by Login Modal
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public RedirectView login(ModelMap model, @RequestParam("username") String username, @RequestParam("password") String password){
+        if(userRepository.findByEmail(username).size()==0){
+            return new RedirectView("/login");
+        }else if(!userRepository.findByEmail(username).get(0).getPassword().equals(password)){
+            return new RedirectView("/login");
+        }else {
+            model.put("currentUser",userRepository.findByEmail(username).get(0).getFirstName());
+            model.put("accessRights",userRepository.findByEmail(username).get(0).getPermission());
+            return new RedirectView("/");
 
-        model.put("currentUser",username);
-        return new RedirectView("/");
+        }
 
     }
+
+   @RequestMapping("/logout")
+   public RedirectView loutout(ModelMap model){
+        model.put("currentUser","Guest");
+        model.put("accessRights","view-only");
+        return new RedirectView("/");
+   }
 
     //Set Default Value of "currentUser" to Guest.
     @ModelAttribute("currentUser")
     public String setUserDefault(){
         return "Guest";
     }
+
+    @ModelAttribute("accessRights")
+    public String setAccessRightsDefault(){
+        return "view-only";
+    }
+
 
 
     //Update User. Save, Update or Delete User.
@@ -123,6 +143,7 @@ public class AdminController {
     @RequestMapping(value = "/addComposition",method =RequestMethod.POST)
     public RedirectView updateActionItem(Composition composition, @RequestParam("action") String action){
 
+        System.out.println(composition.getId());
 
         if(action.equals("update")){
             if(composition.getId() == null){
@@ -139,6 +160,7 @@ public class AdminController {
                 updateComp.setLibraryNumber(composition.getLibraryNumber());
                 updateComp.setNotes(composition.getNotes());
                 updateComp.setTitle(composition.getTitle());
+                compositionRepository.save(composition);
             }
         }
         if(action.equals("delete")){

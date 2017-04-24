@@ -22,8 +22,11 @@ public class Composition {
     private Integer libraryNumber;
     private String title;
 
-    private String composer;
-    private String arranger;
+    @ManyToOne (cascade = CascadeType.ALL)
+    private Musician composer;
+
+    @ManyToOne (cascade = CascadeType.ALL)
+    private Musician arranger;
 
     @ManyToOne
     private Ensemble ensemble;
@@ -34,7 +37,7 @@ public class Composition {
 
     public Composition(){}
 
-    public Composition(Catagory catagory, Integer libraryNumber, String title, String composer, String arranger, Ensemble ensemble, Integer copyright, String notes) {
+    public Composition(Catagory catagory, Integer libraryNumber, String title, Musician composer, Musician arranger, Ensemble ensemble, Integer copyright, String notes) {
         this.catagory = catagory;
         this.libraryNumber = libraryNumber;
         this.title = title;
@@ -77,19 +80,19 @@ public class Composition {
         this.title = title;
     }
 
-    public String getComposer() {
+    public Musician getComposer() {
         return composer;
     }
 
-    public void setComposer(String composer) {
+    public void setComposer(Musician composer) {
         this.composer = composer;
     }
 
-    public String getArranger() {
+    public Musician getArranger() {
         return arranger;
     }
 
-    public void setArranger(String arranger) {
+    public void setArranger(Musician arranger) {
         this.arranger = arranger;
     }
 

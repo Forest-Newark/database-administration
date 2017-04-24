@@ -74,9 +74,10 @@
             <!--Info Row-->
             <div class="row UserInfo">
                 <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
-                <div class="Login col-md-6 text-center">Logged in as: <span th:text="${user}"></span><span
+                <div class="Login col-md-6 text-center">Logged in as: <span th:text="${currentUser}"></span><span
                         th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
-                                                            data-target="#login-modal">Login</a>)</span></div>
+                                                            data-target="#login-modal">Login</a>)</span><span
+                        th:if="${!currentUser.equals('Guest')}">(<a type="button" th:href="@{/logout}">Logout</a>)</span></div>
             </div>
 
 
@@ -166,8 +167,8 @@
                 <tr th:each="composition : ${compositions}">
                     <td th:text="${composition.getCatagory().getName()}">CS</td>
                     <td th:text="${composition.getLibraryNumber()}">542</td>
-                    <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer()},data-arranger=${composition.getArranger()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a></td>
-                    <td th:text="${composition.getComposer()}">Charles Rochester Young</td>
+                    <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer().getName()},data-arranger=${composition.getArranger().getName()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a></td>
+                    <td th:text="${composition.getComposer().getName()}">Charles Rochester Young</td>
                 </tr>
                 <tr th:remove="all">
                     <td>CS</td>
@@ -201,7 +202,7 @@
         <div class="modal-dialog">
             <div class="loginmodal-container">
                 <h1>Login to Your Account</h1><br/>
-                <form action="/login" method="post">
+                <form th:action="@{/login}" action="/login" method="post">
                     <input type="text" name="username" placeholder="Username"/>
                     <input type="password" name="password" placeholder="Password"/>
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
