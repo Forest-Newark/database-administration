@@ -123,6 +123,7 @@ public class AdminController {
     @RequestMapping(value = "/addComposition",method =RequestMethod.POST)
     public RedirectView updateActionItem(Composition composition, @RequestParam("action") String action){
 
+
         if(action.equals("update")){
             if(composition.getId() == null){
                 compositionRepository.save(composition);

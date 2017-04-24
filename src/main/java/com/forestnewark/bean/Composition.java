@@ -1,9 +1,6 @@
 package com.forestnewark.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by forestnewark on 4/22/17.
@@ -17,19 +14,27 @@ public class Composition {
     @GeneratedValue
     private Integer id;
 
-    private String catagory;
+    @ManyToOne
+    private Catagory catagory;
+
+
+
     private Integer libraryNumber;
     private String title;
+
     private String composer;
     private String arranger;
-    private String ensemble;
+
+    @ManyToOne
+    private Ensemble ensemble;
+
     private Integer copyright;
     private String notes;
 
 
     public Composition(){}
 
-    public Composition(String catagory, Integer libraryNumber, String title, String composer, String arranger, String ensemble, Integer copyright, String notes) {
+    public Composition(Catagory catagory, Integer libraryNumber, String title, String composer, String arranger, Ensemble ensemble, Integer copyright, String notes) {
         this.catagory = catagory;
         this.libraryNumber = libraryNumber;
         this.title = title;
@@ -48,11 +53,11 @@ public class Composition {
         this.id = id;
     }
 
-    public String getCatagory() {
+    public Catagory getCatagory() {
         return catagory;
     }
 
-    public void setCatagory(String catagory) {
+    public void setCatagory(Catagory catagory) {
         this.catagory = catagory;
     }
 
@@ -88,11 +93,11 @@ public class Composition {
         this.arranger = arranger;
     }
 
-    public String getEnsemble() {
+    public Ensemble getEnsemble() {
         return ensemble;
     }
 
-    public void setEnsemble(String ensemble) {
+    public void setEnsemble(Ensemble ensemble) {
         this.ensemble = ensemble;
     }
 

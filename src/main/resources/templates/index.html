@@ -164,9 +164,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="composition : ${compositions}">
-                    <td th:text="${composition.getCatagory()}">CS</td>
+                    <td th:text="${composition.getCatagory().getName()}">CS</td>
                     <td th:text="${composition.getLibraryNumber()}">542</td>
-                    <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer()},data-arranger=${composition.getArranger()},data-ensemble=${composition.getEnsemble()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a></td>
+                    <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer()},data-arranger=${composition.getArranger()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a></td>
                     <td th:text="${composition.getComposer()}">Charles Rochester Young</td>
                 </tr>
                 <tr th:remove="all">
@@ -323,9 +323,9 @@
                         <option value="POP">POP</option>
                     </select>
                     <select name="ensemble">
-                        <option value="concertband">Concert Band</option>
-                        <option value="jazzband">Jazz Band</option>
-                        <option value="smallensemble">Small Ensemble</option>
+                        <option value="Concert-Band">Concert Band</option>
+                        <option value="Jazz-Band">Jazz Band</option>
+                        <option value="Small-Ensemble">Small Ensemble</option>
                     </select>
                     <input type="number" name="copyright" placeholder="Copyright Date"/>
                     <input type="text" name="notes" placeholder="Notes"/>
