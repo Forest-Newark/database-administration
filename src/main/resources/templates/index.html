@@ -141,7 +141,32 @@
 
                     <div class="row search-form">
                         <div class="col-md-12 text-center">
-                            Search Stuff here
+                            <div class ="row">
+                                <div class="col-md-12" id="search-row">
+                                    <form th:action="@{/databaseSearch}" action="#">
+                                        <input type="text" name="keyword" placeholder="Keyword"/>
+                                        <select name="catagory">
+                                            <option value="">All Catagories</option>
+                                            <option value="CS">CS</option>
+                                            <option value="EN">EN</option>
+                                            <option value="MB">MB</option>
+                                            <option value="LC">LC</option>
+                                            <option value="M">M</option>
+                                            <option value="MC">MC</option>
+                                            <option value="SB">SB</option>
+                                            <option value="SP">SP</option>
+                                            <option value="POP">POP</option>
+                                        </select>
+                                        <select name="ensemble">
+                                            <option value="">All Ensembles</option>
+                                            <option value="Concert-Band">Concert Band</option>
+                                            <option value="Jazz-Band">Jazz Band</option>
+                                            <option value="Small-Ensemble">Small Ensemble</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

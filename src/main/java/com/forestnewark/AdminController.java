@@ -4,6 +4,7 @@ import com.forestnewark.bean.*;
 import com.forestnewark.repository.ActionItemRepository;
 import com.forestnewark.repository.CompositionRepository;
 import com.forestnewark.repository.UserRepository;
+import com.forestnewark.service.LibraryService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import java.io.*;
 public class AdminController {
 
     final
+    LibraryService libraryService;
+
+    final
     CompositionRepository compositionRepository;
 
     final
@@ -31,11 +35,12 @@ public class AdminController {
     ActionItemRepository actionItemRepository;
 
     @Autowired
-    public AdminController(ActionItemRepository actionItemRepository, UserRepository userRepository, CompositionRepository compositionRepository) {
+    public AdminController(ActionItemRepository actionItemRepository, UserRepository userRepository, CompositionRepository compositionRepository, LibraryService libraryService) {
 
         this.actionItemRepository = actionItemRepository;
         this.userRepository = userRepository;
         this.compositionRepository = compositionRepository;
+        this.libraryService = libraryService;
     }
 
     //Index Mapping
@@ -148,7 +153,7 @@ public class AdminController {
 
         if(action.equals("update")){
             if(composition.getId() == null){
-                compositionRepository.save(composition);
+                libraryService.saveComposition(composition);
             }
             else {
                 Composition updateComp = compositionRepository.getOne(composition.getId());
@@ -161,7 +166,8 @@ public class AdminController {
                 updateComp.setLibraryNumber(composition.getLibraryNumber());
                 updateComp.setNotes(composition.getNotes());
                 updateComp.setTitle(composition.getTitle());
-                compositionRepository.save(composition);
+
+                libraryService.saveComposition(updateComp);
             }
         }
         if(action.equals("delete")){
@@ -172,6 +178,22 @@ public class AdminController {
 
         return new RedirectView("/");
     }
+
+
+    //Search stuff
+    @RequestMapping("/databaseSearch")
+    public String databaseSearch(ModelMap model,@RequestParam("keyword") String keyword,@RequestParam("catagory") String catagory,@RequestParam("ensemble") String ensemble){
+
+        System.out.println(keyword);
+        model.addAttribute("users",userRepository.findAll());
+        model.addAttribute("actionitems",actionItemRepository.findAll());
+        model.addAttribute("compositions", libraryService.searchCompositions(keyword,catagory,ensemble));
+
+
+       return "index";
+    }
+
+
 
 
 
@@ -186,7 +208,6 @@ public class AdminController {
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Catagory", "libnum", "Title","Composer","Arranger","Copyright","Ensemble","Notes").parse(in);
         for (CSVRecord record : records) {
 
-
             Composition composition = new Composition(
                     new Catagory(record.get("Catagory")),
                     Integer.valueOf(record.get("libnum")),
@@ -197,7 +218,8 @@ public class AdminController {
                     (record.get("Copyright").equals("") ? null : Integer.parseInt(record.get("Copyright"))),
                     record.get("Notes")
             );
-            compositionRepository.save(composition);
+            libraryService.saveComposition(composition);
+
         }
 
         return new RedirectView("/");
@@ -212,9 +234,5 @@ public class AdminController {
         fos.close();
         return convFile;
     }
-
-
-
-
 
 }

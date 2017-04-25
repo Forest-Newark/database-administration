@@ -14,3 +14,6 @@ DELETE FROM ensemble;
 INSERT INTO ensemble(id, name) VALUES (1,'Concert-Band');
 INSERT INTO ensemble(id, name) VALUES (2,'Jazz-Band');
 INSERT INTO ensemble(id, name) VALUES (3,'Small-Ensemble');
+
+DELETE FROM users;
+INSERT INTO users(id, email, first_name, last_name, password, permission, rank) VALUES (1,'forest.newark@gmail.com','forest','newark','admin','admin','SGT');

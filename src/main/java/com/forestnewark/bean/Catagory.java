@@ -1,6 +1,7 @@
 package com.forestnewark.bean;
 
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ public class Catagory {
     @GeneratedValue
     private Integer id;
 
+    @Column(unique=true)
     private String name;
 
     public Catagory(){}
