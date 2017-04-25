@@ -21,6 +21,10 @@ public class EnsembleConverter implements Converter<String,Ensemble> {
 
     @Override
     public Ensemble convert(String s) {
+
+//        if(ensembleRepository.findByName(s).size() == 0){
+//            ensembleRepository.save(new Ensemble(s));
+//        }
         Example<Ensemble> example = Example.of(new Ensemble(s));
         return ensembleRepository.findAll(example).get(0);
     }

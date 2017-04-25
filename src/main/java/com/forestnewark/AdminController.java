@@ -1,19 +1,20 @@
 package com.forestnewark;
 
-import com.forestnewark.bean.ActionItem;
-import com.forestnewark.bean.Composition;
-import com.forestnewark.bean.User;
+import com.forestnewark.bean.*;
 import com.forestnewark.repository.ActionItemRepository;
 import com.forestnewark.repository.CompositionRepository;
 import com.forestnewark.repository.UserRepository;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-
+import java.io.*;
 
 
 @Controller
@@ -170,6 +171,46 @@ public class AdminController {
 
 
         return new RedirectView("/");
+    }
+
+
+
+
+    @RequestMapping(value = "/submitCSV", method = RequestMethod.POST)
+    public @ResponseBody
+    RedirectView uploadFileHandler(@RequestParam("file") MultipartFile file) throws IOException {
+
+
+        Reader in = new FileReader(AdminController.convert(file));
+
+        Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Catagory", "libnum", "Title","Composer","Arranger","Copyright","Ensemble","Notes").parse(in);
+        for (CSVRecord record : records) {
+
+
+            Composition composition = new Composition(
+                    new Catagory(record.get("Catagory")),
+                    Integer.valueOf(record.get("libnum")),
+                    record.get("Title"),
+                    new Musician(record.get("Composer")),
+                    new Musician(record.get("Arranger")),
+                    new Ensemble(record.get("Ensemble")),
+                    (record.get("Copyright").equals("") ? null : Integer.parseInt(record.get("Copyright"))),
+                    record.get("Notes")
+            );
+            compositionRepository.save(composition);
+        }
+
+        return new RedirectView("/");
+    }
+
+
+    public static File convert(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 
 

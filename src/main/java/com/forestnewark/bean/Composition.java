@@ -14,7 +14,7 @@ public class Composition {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Catagory catagory;
 
 
@@ -28,7 +28,7 @@ public class Composition {
     @ManyToOne (cascade = CascadeType.ALL)
     private Musician arranger;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Ensemble ensemble;
 
     private Integer copyright;

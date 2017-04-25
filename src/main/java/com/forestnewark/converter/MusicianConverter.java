@@ -24,9 +24,9 @@ public class MusicianConverter implements Converter<String,Musician> {
 
     @Override
     public Musician convert(String s) {
-       if(musicianRepository.findByName(s).size() == 0){
-           musicianRepository.save(new Musician(s));
-       }
+//       if(musicianRepository.findByName(s).size() == 0){
+//           musicianRepository.save(new Musician(s));
+//       }
         Example<Musician> example = Example.of(new Musician(s));
         return musicianRepository.findAll(example).get(0);
 

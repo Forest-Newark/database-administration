@@ -3,29 +3,25 @@
 
 <head>
 
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1"/>
-    <meta name="description" content="Library Database Manager for 246 Army Band"/>
-    <meta name="author" content="SGT Forest Newark"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1" />
+    <meta name="description" content="Library Database Manager for 246 Army Band" />
+    <meta name="author" content="SGT Forest Newark" />
 
     <title>246 Army Band Library Manager</title>
 
     <!-- Bootstrap Core CSS -->
-    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link th:href="@{styles.css}" href="../static/styles.css" rel="stylesheet"/>
+    <link th:href="@{styles.css}" href="../static/styles.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
 <div id="wrapper">
-
-
-
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -44,11 +40,12 @@
             <li>
                 <a type="button" data-toggle="modal" data-target="#composition-modal">Add Composition</a>
             </li>
+            <li>
+                <a type="button" data-toggle="modal" data-target="#csv-modal">Upload CSV</a>
+            </li>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
-
-
 
 
 
@@ -66,25 +63,17 @@
                 </div>
             </div>
 
-
-
             <hr/>
-
 
             <!--Info Row-->
             <div class="row UserInfo">
                 <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
-                <div class="Login col-md-6 text-center">Logged in as: <span th:text="${currentUser}"></span><span
-                        th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
-                                                            data-target="#login-modal">Login</a>)</span><span
-                        th:if="${!currentUser.equals('Guest')}">(<a type="button" th:href="@{/logout}">Logout</a>)</span></div>
+                <div class="Login col-md-6 text-center">Logged in as: <span th:text="${currentUser}"></span><span th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
+                                                                                                                                                             data-target="#login-modal">Login</a>)</span><span th:if="${!currentUser.equals('Guest')}">(<a type="button" th:href="@{/logout}">Logout</a>)</span>
+                </div>
             </div>
 
-
-
             <hr/>
-
-
 
             <!--Work Area-->
             <div class="row WorkArea">
@@ -99,8 +88,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="user : ${users}">
-                            <td th:remove="${accessRights.equals('admin')}? all : none"  th:if="${!accessRights.equals('admin')}" th:text="${user.getFirstName()+'-'+user.getLastName()}"></td>
-                            <td th:remove="${!accessRights.equals('admin')}? all : none"><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getFirstName()+'-'+user.getLastName()}">Forest Newark</a></td>
+                            <td th:remove="${accessRights.equals('admin')}? all : none" th:if="${!accessRights.equals('admin')}" th:text="${user.getFirstName()+'-'+user.getLastName()}"></td>
+                            <td th:remove="${!accessRights.equals('admin')}? all : none"><a th:attr="data-id=${user.getId()},data-firstName=${user.getFirstName()},data-lastName=${user.getLastName()},data-rank=${user.getRank()},data-permission=${user.getPermission()},data-email=${user.getEmail()},data-password=${user.getPassword()}" data-toggle="modal" data-target="#user-modal" href="#" th:text="${user.getFirstName()+'-'+user.getLastName()}">Forest Newark</a>
+                            </td>
                             <td th:text="${user.getPermission()}">Admin</td>
                         </tr>
                         <tr th:remove="all">
@@ -125,7 +115,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="actionitem : ${actionitems}">
-                            <td><a th:attr="data-id=${actionitem.getId()},data-item=${actionitem.getItem()},data-status=${actionitem.getStatus()},data-priority=${actionitem.getPriority()},data-comments=${actionitem.getComments()}" data-toggle="modal" data-target="#action-modal" href="#" th:text="${actionitem.getItem()}">Organize Concert Music</a></td>
+                            <td><a th:attr="data-id=${actionitem.getId()},data-item=${actionitem.getItem()},data-status=${actionitem.getStatus()},data-priority=${actionitem.getPriority()},data-comments=${actionitem.getComments()}" data-toggle="modal" data-target="#action-modal" href="#" th:text="${actionitem.getItem()}">Organize Concert Music</a>
+                            </td>
                             <td th:text="${actionitem.getStatus()}">In Process</td>
                         </tr>
                         <tr th:remove="all">
@@ -155,36 +146,37 @@
                     </div>
 
 
-            <table class="GeneratedTable">
-                <thead>
-                <tr>
-                    <th>Catagory</th>
-                    <th>Library #</th>
-                    <th>Title</th>
-                    <th>Composer</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="composition : ${compositions}">
-                    <td th:text="${composition.getCatagory().getName()}">CS</td>
-                    <td th:text="${composition.getLibraryNumber()}">542</td>
-                    <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer().getName()},data-arranger=${composition.getArranger().getName()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a></td>
-                    <td th:text="${composition.getComposer().getName()}">Charles Rochester Young</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                <tr th:remove="all">
-                    <td>CS</td>
-                    <td>542</td>
-                    <td>Tempered Steel</td>
-                    <td>Charles Rochester Young</td>
-                </tr>
-                </tbody>
-            </table>
+                    <table class="GeneratedTable">
+                        <thead>
+                        <tr>
+                            <th>Catagory</th>
+                            <th>Library #</th>
+                            <th>Title</th>
+                            <th>Composer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="composition : ${compositions}">
+                            <td th:text="${composition.getCatagory().getName()}">CS</td>
+                            <td th:text="${composition.getLibraryNumber()}">542</td>
+                            <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer().getName()},data-arranger=${composition.getArranger().getName()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a>
+                            </td>
+                            <td th:text="${composition.getComposer().getName()}">Charles Rochester Young</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>CS</td>
+                            <td>542</td>
+                            <td>Tempered Steel</td>
+                            <td>Charles Rochester Young</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <div class="text-center">
                         <div class="pagination">
                             <a href="#">&larr;</a>
@@ -195,171 +187,188 @@
                 </div>
             </div>
 
-    <!--Modals-->
+            <!--Modals-->
 
-    <!--Login Modal-->
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="loginmodal-container">
-                <h1>Login to Your Account</h1><br/>
-                <form th:action="@{/login}" action="/login" method="post">
-                    <input type="text" name="username" placeholder="Username"/>
-                    <input type="password" name="password" placeholder="Password"/>
-                    <input type="submit" name="login" class="login loginmodal-submit" value="Login"/>
-                </form>
+            <!--Login Modal-->
+            <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="loginmodal-container">
+                        <h1>Login to Your Account</h1>
+                        <br/>
+                        <form th:action="@{/login}" action="/login" method="post">
+                            <input type="text" name="username" placeholder="Username" />
+                            <input type="password" name="password" placeholder="Password" />
+                            <input type="submit" name="login" class="login loginmodal-submit" value="Login" />
+                        </form>
 
-                <div class="login-help">
-                    <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                        <div class="login-help">
+                            <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 
-    <!--User Modal-->
-    <div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="usermodal-container">
-                <h1 id="user-modal-title">Add User</h1><br/>
-                <form th:action="@{/updateUser}"  action="index.html" modelAttribute="user" method="post">
-                    <input type="text" name="firstName" placeholder="First Name" required="required"/>
-                    <input type="text" name="lastName" placeholder="Last Name" required="required"/>
-                    <select name="rank" required="required">
-                        <option value="SPC">SPC</option>
-                        <option value="SGT" selected="selected">SGT</option>
-                        <option value="SSG">SSG</option>
-                        <option value="SFC">SFC</option>
-                        <option value="1SG">1SG</option>
-                        <option disabled="disabled">----</option>
-                        <option value="CW1">CW1</option>
-                        <option value="CW2">CW2</option>
-                        <option value="CW3">CW3</option>
-                    </select>
-                    <select name="permission" required="required">
-                        <option value="admin">Admin</option>
-                        <option value="user" selected="selected">User</option>
-                        <option value="view-only">View-Only</option>
-                    </select>
-                    <input type="text" name="email" placeholder="Email"/>
-                    <input type="password" name="password" placeholder="Password" required="required"/>
-                    <input type="hidden" name="id"/>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
-                        </div>
+            <!--User Modal-->
+            <div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="usermodal-container">
+                        <h1 id="user-modal-title">Add User</h1>
+                        <br/>
+                        <form th:action="@{/updateUser}" action="index.html" modelAttribute="user" method="post">
+                            <input type="text" name="firstName" placeholder="First Name" required="required" />
+                            <input type="text" name="lastName" placeholder="Last Name" required="required" />
+                            <select name="rank" required="required">
+                                <option value="SPC">SPC</option>
+                                <option value="SGT" selected="selected">SGT</option>
+                                <option value="SSG">SSG</option>
+                                <option value="SFC">SFC</option>
+                                <option value="1SG">1SG</option>
+                                <option disabled="disabled">----</option>
+                                <option value="CW1">CW1</option>
+                                <option value="CW2">CW2</option>
+                                <option value="CW3">CW3</option>
+                            </select>
+                            <select name="permission" required="required">
+                                <option value="admin">Admin</option>
+                                <option value="user" selected="selected">User</option>
+                                <option value="view-only">View-Only</option>
+                            </select>
+                            <input type="text" name="email" placeholder="Email" />
+                            <input type="password" name="password" placeholder="Password" required="required" />
+                            <input type="hidden" name="id" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
 
 
-    <!--Action Item Modal-->
-    <div class="modal fade" id="action-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="actionmodal-container">
-                <h1>Action Item</h1><br/>
-                <form th:action="@{/addActionItem}" action="index.html" method="post">
-                    <input type="text" name="item" placeholder="Action Item"/>
-                    <select name = "status" required="required">
-                        <option selected="selected"  disabled="disabled">Action Status</option>
-                        <option value="Open">Open</option>
-                        <option value="In-Progress">In-Progress</option>
-                        <option value="Complete">Complete</option>
-                        <option value="Canceled">Canceled</option>
-                    </select>
-                    <select name="priority">
-                        <option selected="selected" disabled="disabled">Action Priority</option>
-                        <option value="Critical">Critical</option>
-                        <option value="Normal">Normal</option>
-                        <option value="Low">Low</option>
-                    </select>
-                    <textarea name="comments" placeholder="Comments"></textarea>
-                    <!--<input type="text" name="comments" placeholder="Comments"/>-->
-                    <input type="hidden" name="id" />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
-                        </div>
+            <!--Action Item Modal-->
+            <div class="modal fade" id="action-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="actionmodal-container">
+                        <h1>Action Item</h1>
+                        <br/>
+                        <form th:action="@{/addActionItem}" action="index.html" method="post">
+                            <input type="text" name="item" placeholder="Action Item" />
+                            <select name="status" required="required">
+                                <option selected="selected" disabled="disabled">Action Status</option>
+                                <option value="Open">Open</option>
+                                <option value="In-Progress">In-Progress</option>
+                                <option value="Complete">Complete</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>
+                            <select name="priority">
+                                <option selected="selected" disabled="disabled">Action Priority</option>
+                                <option value="Critical">Critical</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Low">Low</option>
+                            </select>
+                            <textarea name="comments" placeholder="Comments"></textarea>
+                            <!--<input type="text" name="comments" placeholder="Comments"/>-->
+                            <input type="hidden" name="id" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
 
 
-    <!--Composition Modal Modal-->
-    <div class="modal fade" id="composition-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="compositionmodal-container">
-                <h1>Login to Your Account</h1><br/>
-                <form th:action="@{/addComposition}" action="index.html" method="post">
-                    <input type="text" name="title" placeholder="Title"/>
-                    <input type="text" name="composer" placeholder="Composer(Last Name, First Name)"/>
-                    <input type="text" name="arranger" placeholder="Arranger(Last Name, First Name)"/>
-                    <input type="number" name="libraryNumber" placeholder="Library Number"/>
-                    <select name="catagory">
-                        <option value="CS">CS</option>
-                        <option value="EN">EN</option>
-                        <option value="MB">MB</option>
-                        <option value="LC">LC</option>
-                        <option value="M">M</option>
-                        <option value="MC">MC</option>
-                        <option value="SB">SB</option>
-                        <option value="SP">SP</option>
-                        <option value="POP">POP</option>
-                    </select>
-                    <select name="ensemble">
-                        <option value="Concert-Band">Concert Band</option>
-                        <option value="Jazz-Band">Jazz Band</option>
-                        <option value="Small-Ensemble">Small Ensemble</option>
-                    </select>
-                    <input type="number" name="copyright" placeholder="Copyright Date"/>
-                    <input type="text" name="notes" placeholder="Notes"/>
-                    <input type="hidden" name="id" />
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
-                        </div>
+            <!--Composition Modal Modal-->
+            <div class="modal fade" id="composition-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="compositionmodal-container">
+                        <h1>Login to Your Account</h1>
+                        <br/>
+                        <form th:action="@{/addComposition}" action="index.html" method="post">
+                            <input type="text" name="title" placeholder="Title" />
+                            <input type="text" name="composer" placeholder="Composer(Last Name, First Name)" />
+                            <input type="text" name="arranger" placeholder="Arranger(Last Name, First Name)" />
+                            <input type="number" name="libraryNumber" placeholder="Library Number" />
+                            <select name="catagory">
+                                <option value="CS">CS</option>
+                                <option value="EN">EN</option>
+                                <option value="MB">MB</option>
+                                <option value="LC">LC</option>
+                                <option value="M">M</option>
+                                <option value="MC">MC</option>
+                                <option value="SB">SB</option>
+                                <option value="SP">SP</option>
+                                <option value="POP">POP</option>
+                            </select>
+                            <select name="ensemble">
+                                <option value="Concert-Band">Concert Band</option>
+                                <option value="Jazz-Band">Jazz Band</option>
+                                <option value="Small-Ensemble">Small Ensemble</option>
+                            </select>
+                            <input type="number" name="copyright" placeholder="Copyright Date" />
+                            <input type="text" name="notes" placeholder="Notes" />
+                            <input type="hidden" name="id" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="update" class="btn btn-primary btn-md">Submit</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="close" class="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger btn-md">Delete</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
+
+
+            <!--CSV Modal-->
+            <div class="modal fade" id="csv-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="csvmodal-container">
+                        <h1>Login to Your Account</h1>
+                        <br/>
+                        <form method="POST" th:action="@{/submitCSV}" action="index.html" enctype="multipart/form-data">
+                            File to upload:
+                            <input type="file" name="file" />
+
+                            <input type="submit" value="Upload" /> Press here to upload the file!
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-
-</div>
-</div>
 </div>
 
 <!-- jQuery -->
-<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script th:src="@{/js/toggle.js}" src="../static/js/toggle.js"></script>
