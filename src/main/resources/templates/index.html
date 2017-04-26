@@ -67,7 +67,7 @@
 
             <!--Info Row-->
             <div class="row UserInfo">
-                <div class="DatabaseSize col-md-6 text-center">Current Database Size: 10210</div>
+                <div class="DatabaseSize col-md-6 text-center">Current Database Size:<span th:text="${compositions.size()}">10210</span> </div>
                 <div class="Login col-md-6 text-center">Logged in as: <span th:text="${currentUser}"></span><span th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
                                                                                                                                                              data-target="#login-modal">Login</a>)</span><span th:if="${!currentUser.equals('Guest')}">(<a type="button" th:href="@{/logout}">Logout</a>)</span>
                 </div>
@@ -170,7 +170,13 @@
                         </div>
                     </div>
 
-
+                    <div class="text-center">
+                        <div class="paginator">
+                            <a th:if="${back &gt;= 1}" th:href="${'/?page=' + back}">Back</a>
+                            <span> Page <span th:text="${thisPage}">1</span> of <span th:text="${lastPage}">4</span> </span>
+                            <a th:if="${next &lt;= lastPage}" th:href="${'/?page=' + next}">Next</a>
+                        </div>
+                    </div>
 
                     <table class="GeneratedTable">
                         <thead>

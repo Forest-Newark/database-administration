@@ -19,5 +19,5 @@ public interface CompositionRepository extends JpaRepository<Composition,Integer
 
     List<Composition> findAllByOrderByLibraryNumberAscCatagoryAsc();
 
-    Page<Composition> findByTitleContains(Pageable pageable, String match);
+    Page<Composition> findAllOrderByCatagoryName(Pageable pageable);
 }

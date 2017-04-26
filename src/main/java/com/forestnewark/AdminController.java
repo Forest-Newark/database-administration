@@ -10,6 +10,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,10 +49,9 @@ public class AdminController {
     //Index Mapping
     @GetMapping("/")
     public String index(Model model,@RequestParam(defaultValue = "1") Integer page,
-                        @RequestParam(defaultValue = "") String name,
                         @RequestParam(defaultValue = "10") int itemsPerPage){
 
-        Page<Composition> compositionsPage = compositionRepository.findByTitleContains(new PageRequest(page-1, itemsPerPage), name);
+        Page<Composition> compositionsPage = compositionRepository.findAll(new PageRequest(page-1, itemsPerPage, new Sort(Sort.Direction.valueOf("ASC"), "catagory","libraryNumber")));
 
 
         model.addAttribute("back", page-1);
@@ -59,11 +59,11 @@ public class AdminController {
         model.addAttribute("lastPage", compositionsPage.getTotalPages());
         model.addAttribute("thisPage", page);
         model.addAttribute("compositionsPage", compositionsPage);
-        model.addAttribute("query", "&name=" + name + "&itemsPerPage" + itemsPerPage);
+       // model.addAttribute("query", "&name=" + name + "&itemsPerPage" + itemsPerPage);
 
         model.addAttribute("users",userRepository.findAll());
         model.addAttribute("actionitems",actionItemRepository.findAll());
-//        model.addAttribute("compositions",compositionRepository.findAll());
+        model.addAttribute("compositions",compositionRepository.findAll());
         return "index";
     }
 
@@ -202,7 +202,7 @@ public class AdminController {
         System.out.println(keyword);
         model.addAttribute("users",userRepository.findAll());
         model.addAttribute("actionitems",actionItemRepository.findAll());
-        model.addAttribute("compositions", libraryService.searchCompositions(keyword,catagory,ensemble));
+//        model.addAttribute("compositions", libraryService.searchCompositions(keyword,catagory,ensemble));
 
 
        return "index";

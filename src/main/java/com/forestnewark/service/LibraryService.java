@@ -80,22 +80,22 @@ public class LibraryService {
     }
 
 
-
-    public List<Composition> searchCompositions(String keyword, String catagory, String ensemble){
-//        if(!catagory.equals("")){
-//            Catagory searchCatagory = catagoryRepository.findByName(catagory).get(0);
-//        }
 //
-//       Ensemble searchEnsemble = ensembleRepository.findByName(ensemble).get(0);
-
-        if(keyword.equals("")){
-            return compositionRepository.findAllByOrderByLibraryNumberAscCatagoryAsc();
-        }else {
-            return compositionRepository.findByTitleIgnoreCaseContaining(keyword);
-        }
-
-
-    }
+//    public List<Composition> searchCompositions(String keyword, String catagory, String ensemble){
+////        if(!catagory.equals("")){
+////            Catagory searchCatagory = catagoryRepository.findByName(catagory).get(0);
+////        }
+////
+////       Ensemble searchEnsemble = ensembleRepository.findByName(ensemble).get(0);
+//
+////        if(keyword.equals("")){
+////            return compositionRepository.findAllByOrderByLibraryNumberAscCatagoryAsc();
+////        }else {
+////            return compositionRepository.findByTitleIgnoreCaseContaining(keyword);
+////        }
+//
+//
+//    }
 
 
 
