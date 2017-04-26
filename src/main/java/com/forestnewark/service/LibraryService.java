@@ -89,7 +89,7 @@ public class LibraryService {
 //       Ensemble searchEnsemble = ensembleRepository.findByName(ensemble).get(0);
 
         if(keyword.equals("")){
-            return compositionRepository.findAll();
+            return compositionRepository.findAllByOrderByLibraryNumberAscCatagoryAsc();
         }else {
             return compositionRepository.findByTitleIgnoreCaseContaining(keyword);
         }

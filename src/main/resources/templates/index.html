@@ -171,6 +171,7 @@
                     </div>
 
 
+
                     <table class="GeneratedTable">
                         <thead>
                         <tr>
@@ -181,7 +182,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="composition : ${compositions}">
+                        <tr th:each="composition : ${compositionsPage}">
                             <td th:text="${composition.getCatagory().getName()}">CS</td>
                             <td th:text="${composition.getLibraryNumber()}">542</td>
                             <td><a th:attr="data-id=${composition.getId()},data-catagory=${composition.getCatagory().getName()},data-librarynumber=${composition.getLibraryNumber()},data-title=${composition.getTitle()},data-composer=${composition.getComposer().getName()},data-arranger=${composition.getArranger().getName()},data-ensemble=${composition.getEnsemble().getName()},data-copyright=${composition.getCopyright()},data-notes=${composition.getNotes()}" data-toggle="modal" data-target="#composition-modal" href="#" th:text="${composition.getTitle()}">Tempered Steel</a>
@@ -203,9 +204,10 @@
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <div class="pagination">
-                            <a href="#">&larr;</a>
-                            <a href="#">&rarr;</a>
+                        <div class="paginator">
+                            <a th:if="${back &gt;= 1}" th:href="${'/?page=' + back}">Back</a>
+                            <span> Page <span th:text="${thisPage}">1</span> of <span th:text="${lastPage}">4</span> </span>
+                            <a th:if="${next &lt;= lastPage}" th:href="${'/?page=' + next}">Next</a>
                         </div>
                     </div>
 
