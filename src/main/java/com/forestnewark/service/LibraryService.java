@@ -1,37 +1,35 @@
 package com.forestnewark.service;
 
-import com.forestnewark.bean.Catagory;
-import com.forestnewark.bean.Composition;
-import com.forestnewark.bean.Ensemble;
-import com.forestnewark.bean.Musician;
+import com.forestnewark.bean.*;
 import com.forestnewark.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by forestnewark on 4/25/17.
- */
+
 @Component
 public class LibraryService {
 
-    final
+    private final
     ActionItemRepository actionItemRepository;
 
-    final
+    private final
     CatagoryRepository catagoryRepository;
 
-    final
+    private final
     CompositionRepository compositionRepository;
 
-    final
+    private final
     EnsembleRepository ensembleRepository;
 
-    final
+    private final
     MusicianRepository musicianRepository;
 
-    final
+    private final
     UserRepository userRepository;
 
 
@@ -79,29 +77,58 @@ public class LibraryService {
 
     }
 
+    public Page<Composition> findAllCompositionsPageable(Integer page, int itemsPerPage, Sort sort) {
 
-//
-//    public List<Composition> searchCompositions(String keyword, String catagory, String ensemble){
-////        if(!catagory.equals("")){
-////            Catagory searchCatagory = catagoryRepository.findByName(catagory).get(0);
-////        }
-////
-////       Ensemble searchEnsemble = ensembleRepository.findByName(ensemble).get(0);
-//
-////        if(keyword.equals("")){
-////            return compositionRepository.findAllByOrderByLibraryNumberAscCatagoryAsc();
-////        }else {
-////            return compositionRepository.findByTitleIgnoreCaseContaining(keyword);
-////        }
-//
-//
-//    }
+       return compositionRepository.findAll(new PageRequest(page-1, itemsPerPage, sort));
+    }
+
+    public List<User> findAllUsers() {
+
+        return userRepository.findAll();
+    }
+
+    public List<ActionItem> findAllActionItems() {
+        return actionItemRepository.findAll();
+    }
+
+    public List<User> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    public User getOneUser(Integer id) {
+
+       return userRepository.getOne(id);
+    }
+
+    public void deleteUser(User user) {
+
+        userRepository.delete(user);
+    }
+
+    public void saveActionItem(ActionItem actionItem) {
+        actionItemRepository.save(actionItem);
+    }
+
+    public ActionItem getOneActionItem(Integer id) {
+      return  actionItemRepository.getOne(id);
+
+    }
 
 
+    public void deleteActionItem(ActionItem actionItem) {
 
+        actionItemRepository.delete(actionItem);
+    }
 
+    public Composition getOneComposition(Integer id) {
+        return compositionRepository.getOne(id);
+    }
 
-
-
-
+    public void deleteComposition(Composition composition) {
+        compositionRepository.delete(composition);
+    }
 }

@@ -20,6 +20,7 @@ public class Composition {
 
 
     private Integer libraryNumber;
+
     private String title;
 
     @ManyToOne (cascade = CascadeType.ALL)

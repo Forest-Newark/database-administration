@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> findByEmail(String email);
+    List<User> findByRank(String rank);
 }

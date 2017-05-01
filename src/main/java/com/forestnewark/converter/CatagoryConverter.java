@@ -25,6 +25,8 @@ public class CatagoryConverter implements Converter<String,Catagory> {
     @Override
     public Catagory convert(String s) {
         Example<Catagory> example = Example.of(new Catagory(s));
+
+
         return catagoryRepository.findAll(example).get(0);
     }
 }
