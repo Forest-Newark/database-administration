@@ -1,18 +1,13 @@
 package com.forestnewark;
 
 import com.forestnewark.bean.*;
-import com.forestnewark.repository.ActionItemRepository;
-import com.forestnewark.repository.CompositionRepository;
-import com.forestnewark.repository.UserRepository;
 import com.forestnewark.service.LibraryService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,9 +20,8 @@ import java.io.*;
 @SessionAttributes({"currentUser", "accessRights"})
 public class AdminController {
 
-    final
+    private final
     LibraryService libraryService;
-
 
 
     @Autowired
@@ -60,9 +54,10 @@ public class AdminController {
         model.addAttribute("lastPage", compositionsPage.getTotalPages());
         model.addAttribute("thisPage", page);
         model.addAttribute("compositionsPage", compositionsPage);
-
+        model.addAttribute("compositionCount",libraryService.compositionCount());
 
         //Model Attributes for users and action items
+
         model.addAttribute("users", libraryService.findAllUsers());
         model.addAttribute("actionitems", libraryService.findAllActionItems());
 

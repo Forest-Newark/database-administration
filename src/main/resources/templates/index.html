@@ -47,13 +47,9 @@
     </div>
     <!-- /#sidebar-wrapper -->
 
-
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-
-
 
             <!--Header Content-->
             <div class="row Header">
@@ -67,7 +63,7 @@
 
             <!--Info Row-->
             <div class="row UserInfo">
-                <div class="DatabaseSize col-md-6 text-center">Current Database Size:<span th:text="${compositions.size()}">10210</span> </div>
+                <div class="DatabaseSize col-md-6 text-center">Current Database Size:<span th:text="${compositionCount}">10210</span> </div>
                 <div class="Login col-md-6 text-center">Logged in as: <span th:text="${currentUser}"></span><span th:if="${currentUser.equals('Guest')}">(<a type="button" data-toggle="modal"
                                                                                                                                                              data-target="#login-modal">Login</a>)</span><span th:if="${!currentUser.equals('Guest')}">(<a type="button" th:href="@{/logout}">Logout</a>)</span>
                 </div>

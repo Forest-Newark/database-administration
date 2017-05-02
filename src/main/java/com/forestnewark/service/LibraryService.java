@@ -131,4 +131,9 @@ public class LibraryService {
     public void deleteComposition(Composition composition) {
         compositionRepository.delete(composition);
     }
+
+    public Integer compositionCount(){
+
+        return compositionRepository.findAll().size();
+    }
 }
