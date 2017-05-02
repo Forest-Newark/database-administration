@@ -82,6 +82,12 @@ public class LibraryService {
        return compositionRepository.findAll(new PageRequest(page-1, itemsPerPage, sort));
     }
 
+    public Page<Composition> searchCompositions(String keyword,Integer page,Integer itemsPerPage,Sort sort){
+
+        return compositionRepository.findAllByTitleIgnoreCaseContaining(keyword,new PageRequest(page-1,itemsPerPage,sort));
+    }
+
+
     public List<User> findAllUsers() {
 
         return userRepository.findAll();
@@ -135,5 +141,6 @@ public class LibraryService {
     public Integer compositionCount(){
 
         return compositionRepository.findAll().size();
+
     }
 }

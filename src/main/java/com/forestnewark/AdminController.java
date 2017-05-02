@@ -204,9 +204,20 @@ public class AdminController {
     //TODO: Make search results work and Pageable
     //Search stuff
     @RequestMapping("/databaseSearch")
-    public String databaseSearch(ModelMap model, @RequestParam("keyword") String keyword, @RequestParam("catagory") String catagory, @RequestParam("ensemble") String ensemble) {
+    public String databaseSearch(ModelMap model,@RequestParam("keyword") String keyword, @RequestParam(defaultValue = "1") Integer page,
+                                 @RequestParam(defaultValue = "10") int itemsPerPage) {
 
 
+        Sort sort = new Sort(Sort.Direction.valueOf("ASC"), "catagory", "libraryNumber");
+
+        Page<Composition> compositionsPage = libraryService.searchCompositions(keyword, page, itemsPerPage,sort);
+
+        model.addAttribute("back", page - 1);
+        model.addAttribute("next", page + 1);
+        model.addAttribute("lastPage", compositionsPage.getTotalPages());
+        model.addAttribute("thisPage", page);
+        model.addAttribute("compositionsPage", compositionsPage);
+        model.addAttribute("compositionCount",libraryService.compositionCount());
         model.addAttribute("users", libraryService.findAllUsers());
         model.addAttribute("actionitems", libraryService.findAllActionItems());
 
